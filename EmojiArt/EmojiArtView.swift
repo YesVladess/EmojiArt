@@ -2,20 +2,16 @@
 //  EmojiArtView.swift
 //  EmojiArt
 //
-//  Created by Ruben on 1/12/18.
-//  Copyright © 2018 Ruben. All rights reserved.
+//  Created by YesVladess on 01.12.2019.
+//  Copyright © 2019 YesVladess. All rights reserved.
 //
 
 import UIKit
 
-///
 /// View for EmojiArt. Contains/shows the given image.
-///
 class EmojiArtView: UIView {
     
-    ///
     /// The background image
-    ///
     var backgroundImage: UIImage? {
         didSet {
             // When image is set, we need to re-draw ourselves
@@ -42,17 +38,13 @@ class EmojiArtView: UIView {
         setup()
     }
     
-    ///
     /// Do initialization setup. Called after init(frame:) and init(coder:)
-    ///
     private func setup() {
         // Register `self` to accept drop interactions
         addInteraction(UIDropInteraction(delegate: self))
     }
     
-    ///
     /// Add UILabel with the given `attributedString` and centered at `centerPoint`
-    ///
     func addLabel(with attributedString: NSAttributedString, centeredAt centerPoint: CGPoint) {
         let label = UILabel()
         
@@ -70,29 +62,21 @@ class EmojiArtView: UIView {
     }
 }
 
-//
 // Make `EmojiArtView` conform to `UIDropInteractionDelegate`
-//
 extension EmojiArtView: UIDropInteractionDelegate {
     
-    //
     // What to do when performing a drop
-    //
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
         // Copy item(s)
         return UIDropProposal(operation: .copy)
     }
     
-    //
     // Determine if we can accept the given drop/session
-    //
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: NSAttributedString.self)
     }
     
-    //
     // Perform the given drop
-    //
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
         
         // Process any dropped attributed strings

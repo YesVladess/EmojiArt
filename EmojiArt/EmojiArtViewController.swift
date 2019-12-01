@@ -2,33 +2,25 @@
 //  EmojiArtViewController.swift
 //  EmojiArt
 //
-//  Created by Ruben on 1/12/18.
-//  Copyright © 2018 Ruben. All rights reserved.
+//  Created by YesVladess on 01.12.2019.
+//  Copyright © 2019 YesVladess. All rights reserved.
 //
 
 import UIKit
 
-///
-/// TODO: fill this header. So far, the controller allows the user to drag and drop an
-/// image/url set into it. It will then show the image on screen.
-///
 class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Model
     
-    ///
     /// Represents an emojiArt document
-    ///
     var emojiArt: EmojiArt? {
         get {
             guard let url = emojiArtBackgroundImage.url else {
                 return nil
             }
             
-            //
             // Emojis are obtained from the subviews in emojiArtView (only the ones that are UILabel).
             // For each label in emojiArtView, we then call mojiArt.EmojiInfo(label:) to create an EmojiInfo element
-            //
             let emojis = emojiArtView.subviews.compactMap{ $0 as? UILabel }.compactMap{ EmojiArt.EmojiInfo(label: $0) }
             return EmojiArt(url: url, emojis: emojis)
         }
@@ -62,9 +54,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     // MARK: - Storyboard
     
-    ///
     /// View that handles the drop interaction(s)
-    ///
     @IBOutlet weak var dropZone: UIView! {
         didSet {
             // Set `self` as the delegate for drop interactions
@@ -72,19 +62,13 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    ///
     /// UIView for creating awesome emoji-art
-    ///
     var emojiArtView = EmojiArtView()
     
-    ///
     /// Helper class for fetching images from the network in an async. way
-    ///
     private var imageFetcher: ImageFetcher!
     
-    ///
     /// Area that allows scrolling and zomming into the image
-    ///
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.minimumZoomScale = 0.1
@@ -94,14 +78,10 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    //
     // Storage for computed var (tuple) emojiArtBackgroundImage.url
-    //
     private var _emojiArtBackgroundImageURL: URL?
     
-    ///
     /// The background image of the project.
-    ///
     var emojiArtBackgroundImage: (url: URL?, image: UIImage?) {
         get {
             // Image is stored in emojiArtView
@@ -140,24 +120,16 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 
-    ///
     /// UI Constraints for setting up the scrollView's height
-    ///
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     
-    ///
     /// UI Constraints for setting up the scrollView's height
-    ///
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
 
-    ///
     /// List of emojis shown on top that the user may drag into the document.
-    ///
-    var emojis: [String] = "😀😁😂🤣😃😄😅😆😉😊😋😎😍😘😗😙😚☺️🙂🤗🤩🤔🤨😐😑😶🙄😏😣😥😮🤐😯😪😫😴😌😛😜😝🤤😒😓😔😕🙃🤑😲☹️🙁😖😞😟😤😢😭😦😧😨😩🤯😬😰😱😳🤪😵😡😠🤬😷🤒🤕🤢🤮🤧😇🤠🤡🤥🤫🤭🧐🤓😈👿👹👺💀👻👽🤖💩😺😸😹😻😼😽🙀😿😾👶👦👧👨👩👴👵👨‍⚕️👩‍⚕️👨‍🎓👩‍🎓👨‍⚖️👩‍⚖️👨‍🌾👩‍🌾👨‍🍳👩‍🍳👨‍🔧👩‍🔧👨‍🏭👩‍🏭👨‍💼👩‍💼👨‍🔬👩‍🔬👨‍💻👩‍💻👨‍🎤👩‍🎤👨‍🎨👩‍🎨👨‍✈️👩‍✈️👨‍🚀👩‍🚀👨‍🚒👩‍🚒👮👮‍♂️👮‍♀️🕵🕵️‍♂️🕵️‍♀️💂💂‍♂️💂‍♀️👷👷‍♂️👷‍♀️🤴👸👳👳‍♂️👳‍♀️👲🧕🧔👱👱‍♂️👱‍♀️🤵👰🤰🤱👼🎅🤶🧙‍♀️🧙‍♂️🧚‍♀️🧚‍♂️🧛‍♀️🧛‍♂️🧜‍♀️🧜‍♂️🧝‍♀️🧝‍♂️🧞‍♀️🧞‍♂️🧟‍♀️🧟‍♂️🙍🙍‍♂️🙍‍♀️🙎🙎‍♂️🙎‍♀️🙅🙅‍♂️🙅‍♀️🙆🙆‍♂️🙆‍♀️💁💁‍♂️💁‍♀️🙋🙋‍♂️🙋‍♀️🙇🙇‍♂️🙇‍♀️🤦🤦‍♂️🤦‍♀️🤷🤷‍♂️🤷‍♀️💆💆‍♂️💆‍♀️💇💇‍♂️💇‍♀️🚶🚶‍♂️🚶‍♀️🏃🏃‍♂️🏃‍♀️💃🕺👯👯‍♂️👯‍♀️🧖‍♀️🧖‍♂️🕴🗣👤👥👫👬👭💏👨‍❤️‍💋‍👨👩‍❤️‍💋‍👩💑👨‍❤️‍👨👩‍❤️‍👩👪👨‍👩‍👦👨‍👩‍👧👨‍👩‍👧‍👦👨‍👩‍👦‍👦👨‍👩‍👧‍👧👨‍👨‍👦👨‍👨‍👧👨‍👨‍👧‍👦👨‍👨‍👦‍👦👨‍👨‍👧‍👧👩‍👩‍👦👩‍👩‍👧👩‍👩‍👧‍👦👩‍👩‍👦‍👦👩‍👩‍👧‍👧👨‍👦👨‍👦‍👦👨‍👧👨‍👧‍👦👨‍👧‍👧👩‍👦👩‍👦‍👦👩‍👧👩‍👧‍👦👩‍👧‍👧🤳💪👈👉☝️👆🖕👇✌️🤞🖖🤘🖐✋👌👍👎✊👊🤛🤜🤚👋🤟✍️👏👐🙌🤲🙏🤝💅👂👃👣👀👁🧠👅👄💋👓🕶👔👕👖🧣🧤🧥🧦👗👘👙👚👛👜👝🎒👞👟👠👡👢👑👒🎩🎓🧢⛑💄💍🌂💼👐🏻🙌🏻👏🏻🙏🏻👍🏻👎🏻👊🏻✊🏻🤛🏻🤜🏻🤞🏻✌🏻🤘🏻👌🏻👈🏻👉🏻👆🏻👇🏻☝🏻✋🏻🤚🏻🖐🏻🖖🏻👋🏻🤙🏻💪🏻🖕🏻✍🏻🤳🏻💅🏻👂🏻👃🏻👶🏻👦🏻👧🏻👨🏻👩🏻👱🏻‍♀️👱🏻👴🏻👵🏻👲🏻👳🏻‍♀️👳🏻👮🏻‍♀️👮🏻👷🏻‍♀️👷🏻💂🏻‍♀️💂🏻🕵🏻‍♀️🕵🏻👩🏻‍⚕️👨🏻‍⚕️👩🏻‍🌾👨🏻‍🌾👩🏻‍🍳👨🏻‍🍳👩🏻‍🎓👨🏻‍🎓👩🏻‍🎤👨🏻‍🎤👩🏻‍🏫👨🏻‍🏫👩🏻‍🏭👨🏻‍🏭👩🏻‍💻👨🏻‍💻👩🏻‍💼👨🏻‍💼👩🏻‍🔧👨🏻‍🔧👩🏻‍🔬👨🏻‍🔬👩🏻‍🎨👨🏻‍🎨👩🏻‍🚒👨🏻‍🚒👩🏻‍✈️👨🏻‍✈️👩🏻‍🚀👨🏻‍🚀👩🏻‍⚖️👨🏻‍⚖️🤶🏻🎅🏻👸🏻🤴🏻👰🏻🤵🏻👼🏻🤰🏻🙇🏻‍♀️🙇🏻💁🏻💁🏻‍♂️🙅🏻🙅🏻‍♂️🙆🏻🙆🏻‍♂️🙋🏻🙋🏻‍♂️🤦🏻‍♀️🤦🏻‍♂️🤷🏻‍♀️🤷🏻‍♂️🙎🏻🙎🏻‍♂️🙍🏻🙍🏻‍♂️💇🏻💇🏻‍♂️💆🏻💆🏻‍♂️🕴🏻💃🏻🕺🏻🚶🏻‍♀️🚶🏻🏃🏻‍♀️🏃🏻🏋🏻‍♀️🏋🏻🤸🏻‍♀️🤸🏻‍♂️⛹🏻‍♀️⛹🏻🤾🏻‍♀️🤾🏻‍♂️🏌🏻‍♀️🏌🏻🏄🏻‍♀️🏄🏻🏊🏻‍♀️🏊🏻🤽🏻‍♀️🤽🏻‍♂️🚣🏻‍♀️🚣🏻🏇🏻🚴🏻‍♀️🚴🏻🚵🏻‍♀️🚵🏻🤹🏻‍♀️🤹🏻‍♂️🛀🏻👐🏼🙌🏼👏🏼🙏🏼👍🏼👎🏼👊🏼✊🏼🤛🏼🤜🏼🤞🏼✌🏼🤘🏼👌🏼👈🏼👉🏼👆🏼👇🏼☝🏼✋🏼🤚🏼🖐🏼🖖🏼👋🏼🤙🏼💪🏼🖕🏼✍🏼🤳🏼💅🏼👂🏼👃🏼👶🏼👦🏼👧🏼👨🏼👩🏼👱🏼‍♀️👱🏼👴🏼👵🏼👲🏼👳🏼‍♀️👳🏼👮🏼‍♀️👮🏼👷🏼‍♀️👷🏼💂🏼‍♀️💂🏼🕵🏼‍♀️🕵🏼👩🏼‍⚕️👨🏼‍⚕️👩🏼‍🌾👨🏼‍🌾👩🏼‍🍳👨🏼‍🍳👩🏼‍🎓👨🏼‍🎓👩🏼‍🎤👨🏼‍🎤👩🏼‍🏫👨🏼‍🏫👩🏼‍🏭👨🏼‍🏭👩🏼‍💻👨🏼‍💻👩🏼‍💼👨🏼‍💼👩🏼‍🔧👨🏼‍🔧👩🏼‍🔬👨🏼‍🔬👩🏼‍🎨👨🏼‍🎨👩🏼‍🚒👨🏼‍🚒👩🏼‍✈️👨🏼‍✈️👩🏼‍🚀👨🏼‍🚀👩🏼‍⚖️👨🏼‍⚖️🤶🏼🎅🏼👸🏼🤴🏼👰🏼🤵🏼👼🏼🤰🏼🙇🏼‍♀️🙇🏼💁🏼💁🏼‍♂️🙅🏼🙅🏼‍♂️🙆🏼🙆🏼‍♂️🙋🏼🙋🏼‍♂️🤦🏼‍♀️🤦🏼‍♂️🤷🏼‍♀️🤷🏼‍♂️🙎🏼🙎🏼‍♂️🙍🏼🙍🏼‍♂️💇🏼💇🏼‍♂️💆🏼💆🏼‍♂️🕴🏼💃🏼🕺🏼🚶🏼‍♀️🚶🏼🏃🏼‍♀️🏃🏼🏋🏼‍♀️🏋🏼🤸🏼‍♀️🤸🏼‍♂️⛹🏼‍♀️⛹🏼🤾🏼‍♀️🤾🏼‍♂️🏌🏼‍♀️🏌🏼🏄🏼‍♀️🏄🏼🏊🏼‍♀️🏊🏼🤽🏼‍♀️🤽🏼‍♂️🚣🏼‍♀️🚣🏼🏇🏼🚴🏼‍♀️🚴🏼🚵🏼‍♀️🚵🏻🤹🏼‍♀️🤹🏼‍♂️🛀🏼".map { String($0) }
+    var emojis: [String] = "😀😁😂🤣😃😄🚣🏼‍♀️🚣🏼🏇🏼🚴🏼‍♀️🚴🏼🚵🏼‍♀️🚵🏻🤹🏼‍♀️🤹🏼‍♂️🛀🏼".map { String($0) }
     
-    ///
     /// Collection view containing emojis that the user can drag and drop into the dropZone
-    ///
     @IBOutlet weak var emojiCollectionView: UICollectionView! {
         didSet {
             emojiCollectionView.delegate = self
@@ -168,23 +140,17 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    ///
     /// Font to use when dropping emoji's into the dropZone
-    ///
     private var font: UIFont {
         return UIFontMetrics(forTextStyle: .body).scaledFont(for:
             UIFont.preferredFont(forTextStyle: .body).withSize(40.0)
         )
     }
     
-    ///
     /// Keeps track of whether or not the user is adding an Emoji
-    ///
     private var addingEmoji = false
     
-    ///
     /// Add emoji button was clicked
-    ///
     @IBAction func addEmoji() {
         // Update internal state to "adding emoji"
         addingEmoji = true
@@ -194,14 +160,10 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         emojiCollectionView.reloadSections(IndexSet(integer: 0))
     }
     
-    ///
     /// The EmojiArtDocument we're using do open/save the docuemnt
-    ///
     var document: EmojiArtDocument?
     
-    ///
     /// Save the current document
-    ///
     @IBAction func save(_ sender: UIBarButtonItem? = nil) {
         // Update document with model
         document?.emojiArt = emojiArt
@@ -212,9 +174,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    ///
     /// Close the current document. Saves it before doing so.
-    ///
     @IBAction func close(_ sender: UIBarButtonItem) {
         // Let's save before we close
         save()
@@ -231,9 +191,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    //
     // View will appear
-    //
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -255,9 +213,8 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
 
 // Conform to `UIDropInteractionDelegate`
 extension EmojiArtViewController: UIDropInteractionDelegate {
-    ///
+    
     /// Return whether the delegate is interested in the given session
-    ///
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
         // Drag must be URL and UIImage. (Using NSURL because this is an objective-c api. Although we
         // have automatic-bridging between objective-c's NSURL and swift's URL, we must use NSURL.self
@@ -265,23 +222,19 @@ extension EmojiArtViewController: UIDropInteractionDelegate {
         return session.canLoadObjects(ofClass: UIImage.self) && session.canLoadObjects(ofClass: NSURL.self)
     }
     
-    ///
     /// Tells the delegate the drop session has changed.
     ///
     /// You must implement this method if the drop interaction’s view can accept drop activities. If
     /// you don’t provide this method, the view cannot accept any drop activities.
-    ///
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
         // Copy whatever is being dropped into the view
         return UIDropProposal(operation: .copy)
     }
     
-    ///
     /// Tells the delegate it can request the item provider data from the session’s drag items.
     ///
     /// You can request a drag item's itemProvider data within the scope of this method only and
     /// not at any other time.
-    ///
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
         
         // Image fetcher allows to fetch an image in the background based on given URL
@@ -313,17 +266,14 @@ extension EmojiArtViewController: UIDropInteractionDelegate {
 
 // Conform to `UIScrollViewDelegate`
 extension EmojiArtViewController: UIScrollViewDelegate {
-    //
+    
     // Asks the delegate for the view to scale when zooming is about to occur in the scroll view.
-    //
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         // The view we want to scale
         return emojiArtView
     }
     
-    //
     // Tells the delegate that the scroll view’s zoom factor changed.
-    //
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         scrollViewHeight.constant = scrollView.contentSize.height
         scrollViewWidth.constant = scrollView.contentSize.width
@@ -333,9 +283,7 @@ extension EmojiArtViewController: UIScrollViewDelegate {
 // Conform to `UICollectionViewDropDelegate`
 extension EmojiArtViewController: UICollectionViewDropDelegate {
     
-    ///
     /// What to do when dropping items
-    ///
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         
         // We don't want dropping into section 0 (that section is for adding new emojis only)
@@ -350,17 +298,13 @@ extension EmojiArtViewController: UICollectionViewDropDelegate {
         return UICollectionViewDropProposal(operation: (isSelf ? .move : .copy), intent: .insertAtDestinationIndexPath)
     }
     
-    ///
     /// Tell collectionView whether or not the dropSession is valid and we can receive it
-    ///
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         // Session must provide an attributed string
         return session.canLoadObjects(ofClass: NSAttributedString.self)
     }
     
-    ///
     /// Perform the drop of an item into the collection view
-    ///
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         
         // The index path where the drop would be inserted
@@ -425,24 +369,18 @@ extension EmojiArtViewController: UICollectionViewDropDelegate {
 // Conform to `UICollectionViewDragDelegate`
 extension EmojiArtViewController: UICollectionViewDragDelegate {
     
-    ///
     /// Which items are we initially providing with the drag
-    ///
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         session.localContext = collectionView
         return dragItem(at: indexPath)
     }
     
-    ///
     /// Items are being added to the drag
-    ///
     func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
         return dragItem(at: indexPath)
     }
     
-    ///
     /// Return array of `UIDragItem` representing the cell at `indexPath`
-    ///
     private func dragItem(at indexPath: IndexPath) -> [UIDragItem] {
         
         // If user is adding an emoji, disable dragging
@@ -571,14 +509,10 @@ extension EmojiArtViewController: UICollectionViewDataSource {
 }
 
 
-//
 // Useful controller-related utilities for EmojiArt.EmojiInfo
-//
 extension EmojiArt.EmojiInfo {
     
-    ///
     /// Creates a new EmojiArt.EmojiInfo from the given UILabel
-    ///
     init?(label: UILabel) {
         
         // We need attributedText (to know the actual emoji text and size)

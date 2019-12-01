@@ -2,8 +2,8 @@
 //  EmojiArtViewGestures.swift
 //  EmojiArt
 //
-//  Created by Ruben on 1/13/18.
-//  Copyright © 2018 Ruben. All rights reserved.
+//  Created by YesVladess on 01.12.2019.
+//  Copyright © 2019 YesVladess. All rights reserved.
 //
 
 import UIKit
@@ -17,18 +17,14 @@ import UIKit
 //
 extension EmojiArtView {
     
-    ///
     /// Add gesture recognizers to the given view
-    ///
     func addEmojiArtGestureRecognizers(to view: UIView) {
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectSubview(by:))))
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(selectAndMoveSubview(by:))))
     }
 
-    ///
     /// The selected subview (if any), nil otherwise
-    ///
     var selectedSubview: UIView? {
         get {
             // Selected views have a border with greater than 0
@@ -55,9 +51,7 @@ extension EmojiArtView {
         }
     }
     
-    ///
     /// Select the the touched/tapped subview
-    ///
     @objc private func selectSubview(by recognizer: UITapGestureRecognizer) {
         
         // Make sure the gesture is in valid state
@@ -69,9 +63,7 @@ extension EmojiArtView {
         selectedSubview = recognizer.view
     }
     
-    ///
     /// Pan gestures allow to move subview around
-    ///
     @objc private func selectAndMoveSubview(by recognizer: UIPanGestureRecognizer) {
 
         switch recognizer.state {
@@ -93,19 +85,15 @@ extension EmojiArtView {
         }
     }
     
-    ///
     /// Move the given `view` to the front. For instance, dragging a subview will send it to the front to allow the
     /// user to re-arrange them as they wish.
-    ///
     private func sendToFront(_ view: UIView) {
         if let indexOfSubview = subviews.firstIndex(of: view) {
             exchangeSubview(at: subviews.count-1, withSubviewAt: indexOfSubview)
         }
     }
     
-    ///
-    /// Enable emoji-gesture-recognizers.
-    ///
+    /// Enable emoji-gesture-recognizers
     private func enableRecognizers() {
         // Disable any conflicting gesture-reconizers from parent scroll-view
         if let scrollView = superview as? UIScrollView {
@@ -125,9 +113,7 @@ extension EmojiArtView {
         }
     }
     
-    ///
-    /// Disable emoji-gesture-recognizers.
-    ///
+    /// Disable emoji-gesture-recognizers
     private func disableRecognizers() {
         // Enable gesture-reconizers from parent scroll-view
         if let scrollView = superview as? UIScrollView {
@@ -138,16 +124,12 @@ extension EmojiArtView {
         gestureRecognizers?.forEach { $0.isEnabled = false }
     }
 
-    ///
     /// Deselect any possibly selected subview
-    ///
     @objc private func deselectSubview() {
         selectedSubview = nil
     }
 
-    ///
     /// Pinching allows to resize the label
-    ///
     @objc private func resizeSelectedLabel(by recognizer: UIPinchGestureRecognizer) {
         switch recognizer.state {
         case .changed, .ended:

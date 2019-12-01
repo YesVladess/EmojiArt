@@ -2,30 +2,20 @@
 //  DocumentBrowserViewController.swift
 //  EmojiArtL14
 //
-//  Created by Ruben on 3/9/18.
-//  Copyright © 2018 Ruben. All rights reserved.
+//  Created by YesVladess on 01.12.2019.
+//  Copyright © 2019 YesVladess. All rights reserved.
 //
 
 import UIKit
 
-///
 /// A view controller for browsing and performing actions on documents stored locally and in the cloud.
-///
 class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocumentBrowserViewControllerDelegate {
     
-    //
-    // View did load
-    //
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // UIDocumentBrowserViewControllerDelegate
         delegate = self
-        
-        // This will change to true if we're on iPad
         allowsDocumentCreation = false
-        
-        // We can only open one document at a time
         allowsPickingMultipleItems = false
         
         // If necessary, setup a "template" document used for creating new documents
@@ -38,9 +28,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         }
     }
     
-    ///
     /// If necessary, setup a "template" document used for creating new documents.
-    ///
     private func setupTemplate() {
         // Templates are only setup on iPad (we only create documents on iPad because iPhones cannot drag n' drop from outside
         // our app)
@@ -54,9 +42,7 @@ class DocumentBrowserViewController: UIDocumentBrowserViewController, UIDocument
         }
     }
     
-    ///
     /// A URL where the "template/blank" document is stored. Used for creating new documents.
-    ///
     private var template: URL?
     
     // MARK: UIDocumentBrowserViewControllerDelegate

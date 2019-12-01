@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  EmojiArtL14
 //
-//  Created by Ruben on 3/9/18.
-//  Copyright © 2018 Ruben. All rights reserved.
+//  Created by YesVladess on 01.12.2019.
+//  Copyright © 2019 YesVladess. All rights reserved.
 //
 
 import UIKit
