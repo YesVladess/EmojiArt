@@ -8,6 +8,13 @@
 
 import UIKit
 
+extension Notification.Name {
+    ///
+    /// Notifies when something changes in an EmojiArtView
+    ///
+    static var EmojiArtViewDidChange = Notification.Name("EmojiArtViewDidChange NOTE THIS STRING CAN BE ANY VALUE")
+}
+
 /// View for EmojiArt. Contains/shows the given image.
 class EmojiArtView: UIView {
     
@@ -44,6 +51,12 @@ class EmojiArtView: UIView {
         addInteraction(UIDropInteraction(delegate: self))
     }
     
+    // Used to keep things in the heap so that the observing through KVO happens as long as the view
+    // controller stays in the heap.
+    //
+    // This way, once the view controller leaves the heap, observation stops.
+    private var labelObservations = [UIView: NSKeyValueObservation]()
+    
     /// Add UILabel with the given `attributedString` and centered at `centerPoint`
     func addLabel(with attributedString: NSAttributedString, centeredAt centerPoint: CGPoint) {
         let label = UILabel()
@@ -59,6 +72,24 @@ class EmojiArtView: UIView {
         
         // Add subview
         self.addSubview(label)
+        
+        // Lecture #15: Through kev-value observing, we'll check anytime the label's `center` property changes, and
+        // indicate/broadcast that the EmojiArtViewDidChange
+        //
+        // Note: adding the observation to labelObservations ensures the thing stays in the heap, so that observation
+        // does not stop.
+        labelObservations[label] = label.observe(\.center) { (label, change) in
+            NotificationCenter.default.post(name: .EmojiArtViewDidChange, object: self)
+        }
+    }
+    
+    override func willRemoveSubview(_ subview: UIView) {
+        super.willRemoveSubview(subview)
+        
+        // If, for any reason (currently there is no way this could happen), a subview is removed and is part of
+        // `labelObservations`, we want to make sure we remove it from the dictionary (`labelObservations`), so that
+        // key-value observing stops.
+        labelObservations.removeValue(forKey: subview)
     }
 }
 
@@ -89,7 +120,16 @@ extension EmojiArtView: UIDropInteractionDelegate {
             for attributedString in providers as? [NSAttributedString] ?? [] {
                 // Add a label with the dropped string
                 self.addLabel(with: attributedString, centeredAt: dropPoint)
+                self.emojiArtViewDidChange()
             }
         }
+    }
+    
+    ///
+    /// Called anytime the EmojiArtView changes
+    ///
+    func emojiArtViewDidChange() {
+        // Notify any listeners that the EmojiArtView did change
+        NotificationCenter.default.post(name: .EmojiArtViewDidChange, object: self)
     }
 }
