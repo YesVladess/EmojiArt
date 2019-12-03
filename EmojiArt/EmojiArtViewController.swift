@@ -119,13 +119,13 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
-
+    
     /// UI Constraints for setting up the scrollView's height
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     
     /// UI Constraints for setting up the scrollView's height
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
-
+    
     /// List of emojis shown on top that the user may drag into the document.
     var emojis: [String] = "😀😁😂🤣😃😄🚣🏼‍♀️🚣🏼🏇🏼🚴🏼‍♀️🚴🏼🚵🏼‍♀️🚵🏻🤹🏼‍♀️🤹🏼‍♂️🛀🏼".map { String($0) }
     
@@ -164,7 +164,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
     var document: EmojiArtDocument?
     
     /// Called when document changes. It will, for intance, save the document
-//    @IBAction func save(_ sender: UIBarButtonItem? = nil) {
+    //    @IBAction func save(_ sender: UIBarButtonItem? = nil) {
     func documentChanged(_ sender: UIBarButtonItem? = nil) {
         // Update document with model
         document?.emojiArt = emojiArt
@@ -192,8 +192,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         // Dismiss the ViewController
-        dismiss(animated: true) {
-            // Close it after it has been dismissed
+        presentingViewController?.dismiss(animated: true) {
             self.document?.close { success in
                 // Lecture #15: Stop observing document changes
                 if let documentObserver = self.documentObserver {
@@ -205,7 +204,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     // Used as a cookie to tell notificacion center when to stop observing document changes
     private var documentObserver: NSObjectProtocol?
-
+    
     private var emojiArtViewObserver: NSObjectProtocol?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -216,7 +215,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
             forName: UIDocument.stateChangedNotification,
             object: document,
             queue: OperationQueue.main) { (notification) in
-                print("--- Document state changed to: \(self.document!.documentState.description)") // temporary debug
+                print("--- Document state changed to: \(self.document!.documentState.description)")
         }
         
         // Open document
@@ -404,7 +403,7 @@ extension EmojiArtViewController: UICollectionViewDropDelegate {
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
             }
-            // This is NOT a local drag (drop comes from somewhere else)
+                // This is NOT a local drag (drop comes from somewhere else)
             else {
                 // Temporarily drop a "loading" cell while the actual one (provided by the itemProvider) loads
                 let placeholderContext = coordinator.drop(
@@ -526,7 +525,7 @@ extension EmojiArtViewController: UICollectionViewDataSource {
             // Return it
             return emojiCell
         }
-        // If we're not in section 1, and we are adding an emoji, we want to show the "EmojiInputCell" cell
+            // If we're not in section 1, and we are adding an emoji, we want to show the "EmojiInputCell" cell
         else if addingEmoji {
             
             // Add emoji cell
@@ -551,7 +550,7 @@ extension EmojiArtViewController: UICollectionViewDataSource {
             }
             return cell
         }
-        // If we are not adding an emoji, show the "+" (add) emoji cell
+            // If we are not adding an emoji, show the "+" (add) emoji cell
         else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "AddEmojiButtonCell", for: indexPath)
         }
@@ -564,7 +563,7 @@ extension EmojiArtViewController: UICollectionViewDataSource {
         if addingEmoji && indexPath.section == 0 {
             return CGSize(width: 300, height: 80)
         }
-        // Regular cells have a fixed size of NxN
+            // Regular cells have a fixed size of NxN
         else {
             return CGSize(width: 80, height: 80)
         }
