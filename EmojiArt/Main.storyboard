@@ -21,7 +21,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="26" y="654"/>
+            <point key="canvasLocation" x="323" y="654"/>
         </scene>
         <!--Emoji Art View Controller-->
         <scene sceneID="hs2-Ct-KRh">
@@ -172,7 +172,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Info" id="3vM-IP-Q4N">
                             <connections>
-                                <segue destination="Ny9-oY-sd4" kind="presentation" identifier="Show Document Info" id="EjB-rT-lyg"/>
+                                <segue destination="Ny9-oY-sd4" kind="presentation" identifier="Show Document Info" modalPresentationStyle="formSheet" id="EjB-rT-lyg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -194,11 +194,11 @@
             <objects>
                 <viewController id="Ny9-oY-sd4" customClass="DocumentInfoViewController" customModule="EmojiArt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b7u-So-ity">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yxh-SA-Eoa">
-                                <rect key="frame" x="250.5" y="388" width="211" height="208"/>
+                                <rect key="frame" x="164.5" y="206" width="211" height="208"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1z7-RT-Hch">
                                         <rect key="frame" x="0.0" y="0.0" width="211" height="178"/>
@@ -271,6 +271,7 @@
                     <connections>
                         <outlet property="createdLabel" destination="tMc-JY-3kV" id="oZ4-SB-YHO"/>
                         <outlet property="sizeLabel" destination="7QH-Zb-wwq" id="SCc-8m-tdW"/>
+                        <outlet property="thumbnailAspectRaio" destination="eqO-DB-nYH" id="BJg-oZ-Czx"/>
                         <outlet property="thumbnailImageView" destination="Mip-2I-GhR" id="Vvy-MF-gBR"/>
                     </connections>
                 </viewController>

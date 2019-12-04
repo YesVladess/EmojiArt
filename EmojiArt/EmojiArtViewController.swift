@@ -10,6 +10,17 @@ import UIKit
 
 class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Show Document Info" {
+            if let destination = segue.destination.contents as? DocumentInfoViewController {
+                document?.thumbnail = emojiArtView.snapshot
+                destination.document = document
+            }
+        }
+    }
+    
     // MARK: - Model
     
     /// Represents an emojiArt document
