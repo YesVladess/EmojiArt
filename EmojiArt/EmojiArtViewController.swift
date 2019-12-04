@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate {
     
     // MARK: - Navigation
     
@@ -17,8 +17,20 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
             if let destination = segue.destination.contents as? DocumentInfoViewController {
                 document?.thumbnail = emojiArtView.snapshot
                 destination.document = document
+                if let ppc = destination.popoverPresentationController {
+                    ppc.delegate = self
+                }
             }
         }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    @IBAction func close(bySegue: UIStoryboardSegue) {
+        close()
+        //bySegue.source
     }
     
     // MARK: - Model
@@ -187,7 +199,7 @@ class EmojiArtViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     /// Close the current document. Saves it before doing so.
-    @IBAction func close(_ sender: UIBarButtonItem) {
+    @IBAction func close(_ sender: UIBarButtonItem? = nil) {
         
         // Stop observing for EmojiArtViewDidChange notifications
         if let observer = emojiArtViewObserver {

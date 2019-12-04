@@ -170,11 +170,20 @@
                                 <action selector="close:" destination="Ah0-XT-GLk" id="BUe-j3-DNr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Info" id="3vM-IP-Q4N">
-                            <connections>
-                                <segue destination="Ny9-oY-sd4" kind="presentation" identifier="Show Document Info" modalPresentationStyle="formSheet" id="EjB-rT-lyg"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Pop" id="xut-Ze-gGv">
+                                <connections>
+                                    <segue destination="Ny9-oY-sd4" kind="popoverPresentation" identifier="Show Document Info" popoverAnchorBarButtonItem="xut-Ze-gGv" id="vqg-JC-ffB">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Info" id="3vM-IP-Q4N">
+                                <connections>
+                                    <segue destination="Ny9-oY-sd4" kind="presentation" identifier="Show Document Info" modalPresentationStyle="formSheet" id="EjB-rT-lyg"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -194,11 +203,11 @@
             <objects>
                 <viewController id="Ny9-oY-sd4" customClass="DocumentInfoViewController" customModule="EmojiArt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b7u-So-ity">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <rect key="frame" x="0.0" y="0.0" width="388" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yxh-SA-Eoa">
-                                <rect key="frame" x="164.5" y="206" width="211" height="208"/>
+                                <rect key="frame" x="88.5" y="214.5" width="211" height="238"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1z7-RT-Hch">
                                         <rect key="frame" x="0.0" y="0.0" width="211" height="178"/>
@@ -251,8 +260,17 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jzf-1w-W7M">
+                                        <rect key="frame" x="48.5" y="178" width="114" height="30"/>
+                                        <state key="normal" title="Close Document">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="7xt-cd-isr" kind="unwind" unwindAction="closeBySegue:" id="Tej-07-znI"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gI8-Tr-5uq">
-                                        <rect key="frame" x="37" y="178" width="137" height="30"/>
+                                        <rect key="frame" x="37" y="208" width="137" height="30"/>
                                         <state key="normal" title="Return to document"/>
                                         <connections>
                                             <action selector="done" destination="Ny9-oY-sd4" eventType="touchUpInside" id="y9D-Wf-vyO"/>
@@ -270,12 +288,15 @@
                     </view>
                     <connections>
                         <outlet property="createdLabel" destination="tMc-JY-3kV" id="oZ4-SB-YHO"/>
+                        <outlet property="returnToDocumentButton" destination="gI8-Tr-5uq" id="UFb-E9-0iV"/>
                         <outlet property="sizeLabel" destination="7QH-Zb-wwq" id="SCc-8m-tdW"/>
                         <outlet property="thumbnailAspectRaio" destination="eqO-DB-nYH" id="BJg-oZ-Czx"/>
                         <outlet property="thumbnailImageView" destination="Mip-2I-GhR" id="Vvy-MF-gBR"/>
+                        <outlet property="topLevelView" destination="Yxh-SA-Eoa" id="Nmo-3r-zIC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYh-Mk-Tux" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="7xt-cd-isr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2428.9897510980963" y="653.90625"/>
         </scene>
@@ -298,4 +319,7 @@
             <point key="canvasLocation" x="1042" y="654"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="vqg-JC-ffB"/>
+    </inferredMetricsTieBreakers>
 </document>
